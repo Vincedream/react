@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+ // invariant 为dev栏中的console提示
 import invariant from 'shared/invariant';
 import warningWithoutStack from 'shared/warningWithoutStack';
 import {REACT_ELEMENT_TYPE} from 'shared/ReactSymbols';
@@ -202,6 +203,7 @@ export function createElement(type, config, children) {
 
   // Children can be more than one argument, and those are transferred onto
   // the newly allocated props object.
+  // 当子节点为多个时，则children为一个数组
   const childrenLength = arguments.length - 2;
   if (childrenLength === 1) {
     props.children = children;
@@ -219,6 +221,7 @@ export function createElement(type, config, children) {
   }
 
   // Resolve default props
+  // 当设置了组件的defaultProps时，则将其值设置为props中一个属性
   if (type && type.defaultProps) {
     const defaultProps = type.defaultProps;
     for (propName in defaultProps) {
