@@ -25,6 +25,7 @@ function Component(props, context, updater) {
   this.refs = emptyObject;
   // We initialize the default updater but the real one gets injected by the
   // renderer.
+  // 这里的更新后续会由renderer注入更新
   this.updater = updater || ReactNoopUpdateQueue;
 }
 
@@ -63,6 +64,7 @@ Component.prototype.setState = function(partialState, callback) {
     'setState(...): takes an object of state variables to update or a ' +
       'function which returns an object of state variables.',
   );
+  // setState 主要是调用了 enqueueSetState 这个函数，而这个函数最终来源于 react-dom
   this.updater.enqueueSetState(this, partialState, callback, 'setState');
 };
 
@@ -81,6 +83,8 @@ Component.prototype.setState = function(partialState, callback) {
  * @protected
  */
 Component.prototype.forceUpdate = function(callback) {
+  // 这里依旧是调用 enqueueSetState 只不过没有传入 state，但是此刻你已经知道 state 已经改变了
+  // 这里原来还能传入回调函数
   this.updater.enqueueForceUpdate(this, callback, 'forceUpdate');
 };
 
@@ -128,6 +132,8 @@ ComponentDummy.prototype = Component.prototype;
 /**
  * Convenience component with default shallow equality check for sCU.
  */
+
+// 这里和之前的 Component 一模一样
 function PureComponent(props, context, updater) {
   this.props = props;
   this.context = context;
@@ -136,6 +142,7 @@ function PureComponent(props, context, updater) {
   this.updater = updater || ReactNoopUpdateQueue;
 }
 
+// 这里将 Component 中的 prototype 复制给 PureComponent
 const pureComponentPrototype = (PureComponent.prototype = new ComponentDummy());
 pureComponentPrototype.constructor = PureComponent;
 // Avoid an extra prototype jump for these methods.
