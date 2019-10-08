@@ -143,6 +143,7 @@ function PureComponent(props, context, updater) {
 }
 
 // 这里将 Component 中的 prototype 复制给 PureComponent
+// pureComponentPrototype 与 PureComponent.prototype 相等，同时改变
 const pureComponentPrototype = (PureComponent.prototype = new ComponentDummy());
 pureComponentPrototype.constructor = PureComponent;
 // Avoid an extra prototype jump for these methods.
