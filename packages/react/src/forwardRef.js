@@ -39,6 +39,11 @@ export default function forwardRef<Props, ElementType: React$ElementType>(
     }
   }
 
+  // 这里返回的是一个对象，在 jsx 中是 <xxxObject />
+  // 这个 xxxObject 是 ReactElement 中的 type参数
+  // 这个 type 参数里面包含了 $$typeof render 属性，
+  // 也就是说 对象中的 $$typeof 虽然为 REACT_FORWARD_REF_TYPE
+  // 但是创建出来的 element 依旧是 $$typeof 依旧是 REACT_ELEMENT_TYPE
   return {
     $$typeof: REACT_FORWARD_REF_TYPE,
     render,
