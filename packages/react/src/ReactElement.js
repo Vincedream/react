@@ -109,6 +109,7 @@ function defineRefPropWarningGetter(props, displayName) {
  * @param {*} props
  * @internal
  */
+// 通过 ReactElement 创建出来的 element ，其 $$typeof 都为 REACT_ELEMENT_TYPE， 而 type 指的是这个节点的 type，如 div span 或者自定义组建 CompA ...
 const ReactElement = function(type, key, ref, self, source, owner, props) {
   const element = {
     // This tag allows us to uniquely identify this as a React Element
@@ -169,6 +170,8 @@ const ReactElement = function(type, key, ref, self, source, owner, props) {
  * Create and return a new ReactElement of the given type.
  * See https://reactjs.org/docs/react-api.html#createelement
  */
+// 这里的 createElement 函数在哪里调用？
+// 当 jsx 转换完成后，每个节点够转换为一个个 createElement 函数，即调用了 createElement
 export function createElement(type, config, children) {
   let propName;
 
