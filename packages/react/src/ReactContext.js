@@ -41,7 +41,7 @@ export function createContext<T>(
     // Fabric (secondary); React DOM (primary) and React ART (secondary).
     // Secondary renderers store their context values on separate fields.
     // 这里的 _currentValue 直接给 Consumer
-    // 用来在<Consumer>{x=>{...}}</Consumer> 中的 x
+    // 用来在<Consumer>{x=>{...}}</Consumer> 中的 x  
     _currentValue: defaultValue,
     _currentValue2: defaultValue,
     // These are circular
